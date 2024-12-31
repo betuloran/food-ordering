@@ -1,15 +1,15 @@
 import React from 'react'
+import OutsideClickHandler from 'react-outside-click-handler';
+import Title from "../ui/Title";
 
-const Search = () => {
+const Search = ({setIsSearchModal}) => {
   return (
     <div>
-          {isSearchModal && (
-              <OutsideClickHandler onOutsideClick={() => setIsSearchModal(false)}>
-                  <div className="">
-                      <Title addClass="text-9xl">Title</Title>
-                  </div>
-              </OutsideClickHandler>
-          )}
+          <OutsideClickHandler onOutsideClick={() => setIsSearchModal(false)}>
+              <div className="">
+                  <Title addClass="text-9xl">Title</Title>
+              </div>
+          </OutsideClickHandler>
     </div>
   )
 }
