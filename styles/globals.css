@@ -14,6 +14,15 @@ body {
     box-sizing: border-box;
 }
 
-.btn-primary{
-@apply text-white px-[30px] py-[8px] bg-primary rounded-3xl cursor-pointer hover:opacity-80 transition-all;
- }
+.btn-primary {
+  @apply text-white px-[30px] py-[8px] rounded-3xl bg-primary cursor-pointer hover:opacity-70 transition-all;
+}
+.slick-dots {
+  @apply !flex justify-start w-full;
+}
+.slick-dots .slick-active div {
+  @apply bg-primary;
+}
+.slick-dots div {
+  @apply !m-0 !mt-8;
+}
