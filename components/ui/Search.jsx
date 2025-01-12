@@ -50,5 +50,4 @@ const Search = ({ setIsSearchModal }) => {
         </div>
     );
 };
-
 export default Search;
