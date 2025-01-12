@@ -1,7 +1,11 @@
+import Carousel from "@/components/ui/Carousel";
+import Campaigns from "../../components/Campaigns";
+
 const Index = () => {
     return (
-        <div className="relative">
+        <div>
             <Carousel />
+            <Campaigns />
         </div>
     );
 };
