@@ -41,6 +41,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="flex gap-x-4 my-6 md:justify-start justify-center">
+                    <h4 className="text-xl font-bold">Choose additional ingredients</h4>
                     <label className="flex items-center gap-x-1">
                         <input type="checkbox" className="w-5 h-5 accent-primary" />
                         <span className="text-sm font-semibold">ketçap</span>
