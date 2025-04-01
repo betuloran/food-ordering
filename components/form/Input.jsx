@@ -1,6 +1,7 @@
 import React from "react";
 
 const Input = (props) => {
+    //  console.log("Input Props:", props);
     const { type, errorMessage, touched, placeholder, ...inputProps } = props;
     console.log(errorMessage);
     return (
@@ -15,7 +16,6 @@ const Input = (props) => {
           `}
                     required
                     {...inputProps}
-
                 />
                 {type !== "datetime-local" && (
                     <span className="absolute top-0 left-0 px-4 text-sm flex items-center h-full peer-focus:h-7 peer-focus:text-xs peer-valid:h-7 peer-valid:text-xs transition-all">
