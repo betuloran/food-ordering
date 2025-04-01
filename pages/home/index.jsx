@@ -12,8 +12,7 @@ const Index = () => {
             <Campaigns />
             <MenuWrapper />
             <About />
-      <Reservation />
-
+            <Reservation />
         </div>
     );
 };
