@@ -31,10 +31,10 @@ const Header = () => {
                             <Link href="/menu">Menu</Link>
                         </li>
                         <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-                            <Link href="/"> About</Link>
+                            <Link href="/about"> About</Link>
                         </li>
                         <li className="px-[5px] py-[10px] uppercase hover:text-primary cursor-pointer">
-                            <Link href="/">Book Table</Link>
+                            <Link href="/reservation">Book Table</Link>
                         </li>
                     </ul>
                     {isMenuModal && (
@@ -47,7 +47,7 @@ const Header = () => {
                     )}
                 </nav>
                 <div className="flex gap-x-4 items-center">
-                    <Link href="/">
+                    <Link href="/login">
                         <FaUserAlt className="hover:text-primary transition-all" />
                     </Link>
                     <Link href="/">
