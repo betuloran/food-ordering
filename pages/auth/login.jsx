@@ -57,7 +57,7 @@ const Login = () => {
                         />
                     ))}
                 </div>
-                <div className="flex flex-col w-full gap-y-3 mt-6">
+                <div className="flex flex-col w-full mt-4 gap-y-3">
                     <button className="btn-primary">LOGIN</button>
                     <button className="btn-primary !bg-secondary">
                         <i className="fa fa-github mr-2 text-lg"></i>
