@@ -2,6 +2,7 @@ import React from "react";
 import Input from "../../components/form/Input";
 import Title from "../../components/ui/Title";
 import { useFormik } from "formik";
+
 import { profileSchema } from "../../schema/profil";
 
 const Account = () => {
