@@ -20,6 +20,7 @@ module.exports = {
         primary: "#ffbe33",
         secondary: "#222831",
         danger: "#ff453a",
+        success: "#00ff00",
       },
       fontFamily: {
         dancing:
