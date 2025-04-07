@@ -1,10 +1,9 @@
-import Image from "next/image";
 
+import Image from "next/image";
 import { useState } from "react";
-import Order from "../../components/profile/Order";
-import Password from "../../components/profile/Password";
-import Products from "@/components/admin/Products";
-p
+import Order from "../../components/admin/Order";
+import Products from "../../components/admin/Products";
+
 const Profile = () => {
     const [tabs, setTabs] = useState(0);
 
@@ -31,19 +30,19 @@ const Profile = () => {
                         <button className="ml-1 ">Products</button>
                     </li>
                     <li
-                        className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 2 && "bg-primary text-white"
+                        className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 1 && "bg-primary text-white"
                             }`}
-                        onClick={() => setTabs(2)}
+                        onClick={() => setTabs(1)}
                     >
                         <i className="fa fa-motorcycle"></i>
                         <button className="ml-1">Orders</button>
                     </li>
                     <li
-                        className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 1 && "bg-primary text-white"
+                        className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 2 && "bg-primary text-white"
                             }`}
-                        onClick={() => setTabs(1)}
+                        onClick={() => setTabs(2)}
                     >
-                        <i className="fa fa-key"></i>
+                        <i className="fa fa-ellipsis-h"></i>
                         <button className="ml-1">Categories</button>
                     </li>
                     <li
@@ -51,11 +50,11 @@ const Profile = () => {
                             }`}
                         onClick={() => setTabs(3)}
                     >
-                        <i className="fa fa-motorcycle"></i>
+                        <i className="fa fa-window-maximize"></i>
                         <button className="ml-1">Footer</button>
                     </li>
                     <li
-                        className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 3 && "bg-primary text-white"
+                        className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 4 && "bg-primary text-white"
                             }`}
                         onClick={() => setTabs(4)}
                     >
@@ -65,8 +64,8 @@ const Profile = () => {
                 </ul>
             </div>
             {tabs === 0 && <Products />}
-            {tabs === 1 && <Password />}
-            {tabs === 2 && <Order />}
+            {tabs === 1 && <Order />}
+
         </div>
     );
 };
