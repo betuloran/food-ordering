@@ -14,7 +14,6 @@ const Header = () => {
     const router = useRouter();
 
 
-
     return (
         <div
             className={`h-[5.5rem] z-50 relative ${router.asPath === "/" ? "bg-transparent" : "bg-secondary"
