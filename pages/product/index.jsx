@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Title from "../../components/ui/Title";
-import { addProduct } from "../../redux/cartSlice";
+import { addProduct } from "@/components/product/redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const itemsExtra = [
