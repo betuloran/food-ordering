@@ -1,13 +1,25 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import Input from "../../components/form/Input";
 import Title from "../../components/ui/Title";
 import { registerSchema } from "../../schema/register";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const onSubmit = async (values, actions) => {
-        await new Promise((resolve) => setTimeout(resolve, 4000));
-        actions.resetForm();
+        try {
+            const res = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
+                values
+            );
+            if (res.status === 201) {
+                toast.success("Registration successful!");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        /* actions.resetForm(); */
     };
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
         useFormik({
@@ -53,7 +65,7 @@ const Register = () => {
             id: 4,
             name: "confirmPassword",
             type: "password",
-            placeholder: "Your Confirm Password",
+            placeholder: "Your Password Again",
             value: values.confirmPassword,
             errorMessage: errors.confirmPassword,
             touched: touched.confirmPassword,
@@ -67,7 +79,7 @@ const Register = () => {
                 onSubmit={handleSubmit}
             >
                 <Title addClass="text-[40px] mb-6">Register</Title>
-                <div className="flex flex-col gap-y-2 w-full">
+                <div className="flex flex-col gap-y-3 w-full">
                     {inputs.map((input) => (
                         <Input
                             key={input.id}
@@ -77,8 +89,10 @@ const Register = () => {
                         />
                     ))}
                 </div>
-                <div className="flex flex-col w-full mt-4 gap-y-3">
-                    <button className="btn-primary">REGISTER</button>
+                <div className="flex flex-col w-full gap-y-3 mt-6">
+                    <button className="btn-primary" type="submit">
+                        REGISTER
+                    </button>
                     <Link href="/auth/login">
                         <span className="text-sm underline cursor-pointer text-secondary">
                             Do you have a account?
