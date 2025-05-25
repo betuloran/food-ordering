@@ -14,13 +14,13 @@ const Register = () => {
                 values
             );
             if (res.status === 201) {
-                toast.success("Registration successful!");
+                toast.success("User created successfully");
             }
         } catch (err) {
             toast.error(err.response.data.message);
             console.log(err);
         }
-        /* actions.resetForm(); */
+        actions.resetForm();
     };
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
         useFormik({
