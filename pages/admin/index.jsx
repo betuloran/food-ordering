@@ -1,33 +1,50 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import Input from "../../components/form/Input";
 import Title from "../../components/ui/Title";
-import { loginSchema } from "../../schema/login";
+import { adminSchema } from "../../schema/admin";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const Login = () => {
+    const { push } = useRouter();
+
     const onSubmit = async (values, actions) => {
-        await new Promise((resolve) => setTimeout(resolve, 4000));
-        actions.resetForm();
+        try {
+            const res = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/admin`,
+                values
+            );
+            if (res.status === 200) {
+                console.log(res.data);
+                actions.resetForm();
+                toast.success("Admin Login Success!");
+                push("/admin/profile");
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
         useFormik({
             initialValues: {
-                email: "",
+                username: "",
                 password: "",
             },
             onSubmit,
-            validationSchema: loginSchema,
+            validationSchema: adminSchema,
         });
 
     const inputs = [
         {
             id: 1,
-            name: "email",
-            type: "email",
-            placeholder: "Your Email Address",
-            value: values.email,
-            errorMessage: errors.email,
-            touched: touched.email,
+            name: "username",
+            type: "text",
+            placeholder: "Your Username",
+            value: values.username,
+            errorMessage: errors.username,
+            touched: touched.username,
         },
         {
             id: 2,
@@ -47,7 +64,7 @@ const Login = () => {
                 onSubmit={handleSubmit}
             >
                 <Title addClass="text-[40px] mb-6">Admin Login</Title>
-                <div className="flex flex-col gap-y-2 w-full">
+                <div className="flex flex-col gap-y-3 w-full">
                     {inputs.map((input) => (
                         <Input
                             key={input.id}
@@ -57,17 +74,36 @@ const Login = () => {
                         />
                     ))}
                 </div>
-                <div className="flex flex-col w-full mt-4 gap-y-3">
-                    <button className="btn-primary">LOGIN</button>
+                <div className="flex flex-col w-full gap-y-3 mt-6">
+                    <button type="submit" className="btn-primary">LOGIN</button>
                     <Link href="/">
                         <span className="text-sm underline cursor-pointer text-secondary">
-                           Go To Home Page
+                            Home Page
                         </span>
                     </Link>
                 </div>
             </form>
         </div>
     );
+};
+
+export const getServerSideProps = (ctx) => {
+    const myCookie = ctx.req?.cookies || "";
+
+    // Eğer token varsa admin paneline yönlendir
+    if (myCookie.token) {
+        return {
+            redirect: {
+                destination: "/admin/profile",
+                permanent: false,
+            },
+        };
+    }
+
+    // Token yoksa login sayfasını göster
+    return {
+        props: {},
+    };
 };
 
 export default Login;
