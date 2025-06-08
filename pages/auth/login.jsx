@@ -1,11 +1,14 @@
 import { useFormik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Input from "../../components/form/Input";
 import Title from "../../components/ui/Title";
 import { loginSchema } from "../../schema/login";
 import { useSession, signIn } from "next-auth/react";
+import { useEffect } from "react";
 
 const Login = () => {
+    const router = useRouter();
     const { data: session } = useSession();
     const onSubmit = async (values, actions) => {
         const { email, password } = values;
@@ -15,9 +18,9 @@ const Login = () => {
     };
     useEffect(() => {
         if (session) {
-            push("/profile");
+            router.push("/profile");
         }
-    }, [session, push]);
+    }, [session, router]);
 
     console.log(session);
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
