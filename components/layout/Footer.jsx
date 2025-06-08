@@ -24,7 +24,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="md:flex-1">
-            <Title addClass="text-[38px]">Chow Mate</Title>
+            <Title addClass="text-[38px]">Feasta</Title>
             <p className="mt-3">
               Necessary, making this the first true generator on the Internet.
               It uses a dictionary of over 200 Latin words, combined with
