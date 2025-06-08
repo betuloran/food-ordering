@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const adminSchema = Yup.object({
-    email: Yup.string().required("Email is required.").email("Email is invalid."),
+    username: Yup.string().required("Username is required."), // email yerine username
     password: Yup.string()
         .required("Password is required.")
         .min(5, "Password must be at least 5 characters.")

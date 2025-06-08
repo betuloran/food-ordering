@@ -11,8 +11,14 @@ const Login = () => {
         const { email, password } = values;
         let options = { redirect: false, email, password };
         const res = await signIn("credentials", options);
-        /*   actions.resetForm(); */
+        actions.resetForm();
     };
+    useEffect(() => {
+        if (session) {
+            push("/profile");
+        }
+    }, [session, push]);
+
     console.log(session);
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
         useFormik({

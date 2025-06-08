@@ -11,6 +11,8 @@ const Login = () => {
     const { push } = useRouter();
 
     const onSubmit = async (values, actions) => {
+        console.log("🚀 Form submitted!", values); // Bu mesajı görüyor musunuz?
+
         try {
             const res = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/admin`,
@@ -33,7 +35,7 @@ const Login = () => {
                 password: "",
             },
             onSubmit,
-            validationSchema: adminSchema,
+            //validationSchema: adminSchema,
         });
 
     const inputs = [
@@ -89,9 +91,7 @@ const Login = () => {
 
 export const getServerSideProps = (ctx) => {
     const myCookie = ctx.req?.cookies || "";
-
-    // Eğer token varsa admin paneline yönlendir
-    if (myCookie.token) {
+    if (myCookie.token === process.env.ADMIN_TOKEN) {
         return {
             redirect: {
                 destination: "/admin/profile",
@@ -100,7 +100,6 @@ export const getServerSideProps = (ctx) => {
         };
     }
 
-    // Token yoksa login sayfasını göster
     return {
         props: {},
     };
