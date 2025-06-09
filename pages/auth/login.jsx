@@ -12,13 +12,13 @@ const Login = () => {
     const { data: session } = useSession();
     const { push } = useRouter();
     const [currentUser, setCurrentUser] = useState();
+
     const onSubmit = async (values, actions) => {
         const { email, password } = values;
         let options = { redirect: false, email, password };
         try {
             const res = await signIn("credentials", options);
             actions.resetForm();
-
         } catch (err) {
             console.log(err);
         }
@@ -31,7 +31,7 @@ const Login = () => {
                 setCurrentUser(
                     res.data?.find((user) => user.email === session?.user?.email)
                 );
-                push("/profile/" + currentUser?._id);
+                session && push("/profile/" + currentUser?._id);
             } catch (err) {
                 console.log(err);
             }

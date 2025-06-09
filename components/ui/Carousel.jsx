@@ -49,7 +49,7 @@ const Carousel = () => {
                 </div>
                 <div>
                     <div className="relative text-white top-48 flex flex-col items-start gap-y-10">
-                        <Title addClass="text-6xl">Fast Food Restaurant</Title>
+                        <Title addClass="text-6xl">Welcome!</Title>
                         <p className="text-sm sm:w-2/5 w-full">
                             Doloremque, itaque aperiam facilis rerum, commodi, temporibus
                             sapiente ad mollitia laborum quam quisquam esse error unde.
