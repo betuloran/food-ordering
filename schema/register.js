@@ -11,7 +11,7 @@ export const registerSchema = Yup.object({
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
             "Password must contain at least one uppercase, one lowercase, one number and one special character."
-    ),
+        ),
     confirmPassword: Yup.string()
         .required("Confirm password is required.")
         .oneOf([Yup.ref("password"), null], "Passwords must match."),

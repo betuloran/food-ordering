@@ -12,17 +12,26 @@ const Register = () => {
 
     const onSubmit = async (values, actions) => {
         try {
-            const res = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/users/register`,
-                values
-            );
+            console.log("Sending data:", values); // Debug için
+            const res = await axios.post("/api/users/register", values);
+
             if (res.status === 201) {
                 toast.success("User created successfully");
                 push("/auth/login");
             }
         } catch (err) {
-            toast.error(err.response.data.message);
-            console.log(err);
+            console.error("Registration error:", err);
+
+            if (err.response) {
+                // Server responded with error
+                toast.error(err.response.data?.message || "Registration failed");
+            } else if (err.request) {
+                // Request was made but no response
+                toast.error("No response from server");
+            } else {
+                // Something else happened
+                toast.error("An error occurred");
+            }
         }
         actions.resetForm();
     };

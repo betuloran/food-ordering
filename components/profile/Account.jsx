@@ -4,34 +4,52 @@ import Title from "../../components/ui/Title";
 import { useFormik } from "formik";
 import { profileSchema } from "../../schema/profile";
 import axios from "axios";
+import { toast } from "react-toastify"; 
 
-const Account = ({ user }) => {
+const Account = ({ user, onUserUpdate }) => {
     const onSubmit = async (values, actions) => {
         try {
-            const res = await axios.put(
-                `${process.env.NEXT_PUBLIC_API_URL}/users/${user._id}`,
-                values
-            );
+            const res = await axios.put(`/api/users/${user._id}`, values);
+
+            if (res.status === 200) {
+                toast.success("Profile updated successfully!");
+
+                // Parent component'e güncel user'ı gönder
+                onUserUpdate(res.data);
+
+                // Form'u güncel değerlerle resetle
+                actions.resetForm({
+                    values: {
+                        fullName: res.data.fullName,
+                        phoneNumber: res.data.phoneNumber,
+                        email: res.data.email,
+                        address: res.data.address,
+                        job: res.data.job,
+                        bio: res.data.bio,
+                    }
+                });
+            }
         } catch (err) {
+            toast.error("Update failed!");
             console.log(err);
         }
-        actions.resetForm();
     };
 
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
         useFormik({
             enableReinitialize: true,
             initialValues: {
-                fullName: user?.fullName,
-                phoneNumber: user?.phoneNumber,
-                email: user?.email,
-                address: user?.address,
-                job: user?.job,
-                bio: user?.bio,
+                fullName: user?.fullName || "",
+                phoneNumber: user?.phoneNumber || "",
+                email: user?.email || "",
+                address: user?.address || "",
+                job: user?.job || "",
+                bio: user?.bio || "",
             },
             onSubmit,
             validationSchema: profileSchema,
         });
+
     const inputs = [
         {
             id: 1,
@@ -88,6 +106,7 @@ const Account = ({ user }) => {
             touched: touched.bio,
         },
     ];
+
     return (
         <form className="lg:p-8 flex-1 lg:mt-0 mt-5" onSubmit={handleSubmit}>
             <Title addClass="text-[40px]">Account Settings</Title>

@@ -2,15 +2,15 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
 import { useEffect, useState } from "react";
 import Account from "../../components/profile/Account";
 import Order from "../../components/profile/Order";
 import Password from "../../components/profile/Password";
 
-const Profile = ({ user }) => {
+const Profile = ({ initialUser }) => {
   const { data: session } = useSession();
   const [tabs, setTabs] = useState(0);
+  const [user, setUser] = useState(initialUser); // State ekledim
   const { push } = useRouter();
 
   const handleSignOut = () => {
@@ -18,6 +18,10 @@ const Profile = ({ user }) => {
       signOut({ redirect: false });
       push("/auth/login");
     }
+  };
+
+  const handleUserUpdate = (updatedUser) => {
+    setUser(updatedUser); // User state'ini güncelleyen fonksiyon
   };
 
   useEffect(() => {
@@ -41,27 +45,24 @@ const Profile = ({ user }) => {
         </div>
         <ul className="text-center font-semibold">
           <li
-            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-              tabs === 0 && "bg-primary text-white"
-            }`}
+            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 0 && "bg-primary text-white"
+              }`}
             onClick={() => setTabs(0)}
           >
             <i className="fa fa-home"></i>
             <button className="ml-1 ">Account</button>
           </li>
           <li
-            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-              tabs === 1 && "bg-primary text-white"
-            }`}
+            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 1 && "bg-primary text-white"
+              }`}
             onClick={() => setTabs(1)}
           >
             <i className="fa fa-key"></i>
             <button className="ml-1">Password</button>
           </li>
           <li
-            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${
-              tabs === 2 && "bg-primary text-white"
-            }`}
+            className={`border w-full p-3 cursor-pointer hover:bg-primary hover:text-white transition-all ${tabs === 2 && "bg-primary text-white"
+              }`}
             onClick={() => setTabs(2)}
           >
             <i className="fa fa-motorcycle"></i>
@@ -76,7 +77,7 @@ const Profile = ({ user }) => {
           </li>
         </ul>
       </div>
-      {tabs === 0 && <Account user={user} />}
+      {tabs === 0 && <Account user={user} onUserUpdate={handleUserUpdate} />}
       {tabs === 1 && <Password user={user} />}
       {tabs === 2 && <Order />}
     </div>
@@ -90,7 +91,7 @@ export async function getServerSideProps({ req, params }) {
 
   return {
     props: {
-      user: user ? user.data : null,
+      initialUser: user ? user.data : null, // Prop adını değiştirdim
     },
   };
 }

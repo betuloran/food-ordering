@@ -4,10 +4,10 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import User from "../../../models/User";
 import dbConnect from "../../../util/dbConnect";
 import bcrypt from "bcryptjs";
+
 dbConnect();
 
 export default NextAuth({
-  /*  adapter: MongoDBAdapter(clientPromise), */
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
@@ -15,20 +15,33 @@ export default NextAuth({
     }),
     CredentialsProvider({
       name: "Credentials",
-
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const email = credentials.email;
-        const password = credentials.password;
-        const user = await User.findOne({ email: email });
-        if (!user) {
-          throw new Error("You haven't registered yet!");
-        }
-        if (user) {
-          return signInUser({ user, password });
+        const { email, password } = credentials;
+
+        try {
+          await dbConnect();
+          const user = await User.findOne({ email: email });
+
+          if (!user) {
+            throw new Error("You haven't registered yet!");
+          }
+
+          const isMatch = await bcrypt.compare(password, user.password);
+          if (!isMatch) {
+            throw new Error("Incorrect password!");
+          }
+
+          return {
+            id: user._id,
+            email: user.email,
+            name: user.fullName
+          };
+        } catch (error) {
+          throw new Error(error.message);
         }
       },
     }),
@@ -36,14 +49,8 @@ export default NextAuth({
   pages: {
     signIn: "/auth/login",
   },
-  database: process.env.MONGODB_URI,
-  secret: "secret",
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
 });
-
-const signInUser = async ({ user, password }) => {
-  const isMAtch = await bcrypt.compare(password, user.password);
-  if (!isMAtch) {
-    throw new Error("Incorrect password!");
-  }
-  return user;
-};

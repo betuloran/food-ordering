@@ -6,11 +6,6 @@ if (!MONGODB_URI) {
     throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
 let cached = global.mongoose
 
 if (!cached) {
@@ -28,6 +23,7 @@ async function dbConnect() {
         }
 
         cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+            console.log("MongoDB connected"); // Buraya taşıdım
             return mongoose
         })
     }
@@ -41,6 +37,5 @@ async function dbConnect() {
 
     return cached.conn;
 }
-console.log("MongoDB connected");
 
 export default dbConnect;

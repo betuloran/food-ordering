@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
+            unique: true, // Bu da önemli
         },
         phoneNumber: {
             type: String,
@@ -26,10 +27,7 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        confirmPassword: {
-            type: String,
-            required: true,
-        },
+        // confirmPassword alanını kaldırdık!
         emailVerified: {
             type: String,
             default: null,

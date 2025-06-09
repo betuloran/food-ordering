@@ -3,7 +3,6 @@ import dbConnect from "@/util/dbConnect";
 import bcrypt from "bcryptjs";
 
 const handler = async (req, res) => {
-              // Sadece POST method'a izin ver
               if (req.method !== 'POST') {
                             return res.status(405).json({ message: 'Method not allowed' });
               }
@@ -32,17 +31,18 @@ const handler = async (req, res) => {
                             const salt = await bcrypt.genSalt(10);
                             const hashedPassword = await bcrypt.hash(password, salt);
 
-                            // Yeni kullanıcı oluştur
+                            // Yeni kullanıcı oluştur (confirmPassword'u dahil etme!)
                             const newUser = new User({
                                           fullName,
                                           email,
                                           password: hashedPassword
+                                          // confirmPassword alanını dahil etmiyoruz!
                             });
 
                             // Kullanıcıyı kaydet
                             await newUser.save();
 
-                            // Response (şifreyi gönderme)
+                            // Response
                             const userResponse = {
                                           _id: newUser._id,
                                           fullName: newUser.fullName,
