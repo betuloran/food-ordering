@@ -3,12 +3,12 @@ import Link from "next/link";
 import Input from "../../components/form/Input";
 import Title from "../../components/ui/Title";
 import { loginSchema } from "../../schema/login";
-import { useSession, signIn, getSession } from "next-auth/react";
-import { useEffect } from "react";
+import { signIn, getSession } from "next-auth/react";
+
 import { useRouter } from "next/router";
 
 const Login = () => {
-    const { data: session } = useSession();
+
     const { push } = useRouter();
 
     const onSubmit = async (values, actions) => {
@@ -17,15 +17,11 @@ const Login = () => {
         try {
             const res = await signIn("credentials", options);
             actions.resetForm();
-
-
-
-            push("/profile");
+            push("/profile/6317cd1273654e130f7d5f91");
         } catch (err) {
             console.log(err);
         }
     };
-
 
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
         useFormik({
@@ -104,7 +100,7 @@ export async function getServerSideProps({ req }) {
     if (session) {
         return {
             redirect: {
-                destination: "/profile",
+                destination: "/profile/6317cd1273654e130f7d5f91",
                 permanent: false,
             },
         };
@@ -114,3 +110,5 @@ export async function getServerSideProps({ req }) {
         props: {},
     };
 }
+
+export default Login;
