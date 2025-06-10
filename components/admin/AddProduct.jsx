@@ -134,3 +134,5 @@ const AddProduct = ({ setIsProductModal }) => {
     </div>
   );
 };
+
+export default AddProduct;
