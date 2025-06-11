@@ -8,7 +8,7 @@ const handler = async (req, res) => {
   if (method === "GET") {
     try {
       const products = await Product.find();
-      res.status(200).json(products);
+      res.status(201).json(newProduct);
     } catch (err) {
       console.log(err);
     }
