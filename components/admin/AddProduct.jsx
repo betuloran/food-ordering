@@ -61,11 +61,11 @@ const AddProduct = ({ setIsProductModal }) => {
   const handleCreate = async () => {
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "food-ordering");
+    data.append("upload_preset", "feasta-app");
 
     try {
       const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/bilgisayar-genetigi/image/upload",
+        "https://api.cloudinary.com/v1_1/dbmkj4db6/image/upload",
         data
       );
 
