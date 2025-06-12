@@ -18,17 +18,35 @@ const Footer = () => {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/footer`
         );
-        setFooterData(res.data[0]);
-        setSocialMediaLinks(res.data[0].socialMedia);
+        console.log("Footer data:", res.data); // Debug için
+
+        if (res.data && res.data.length > 0) {
+          setFooterData(res.data[0]);
+          setSocialMediaLinks(res.data[0]?.socialMedia || []);
+        } else {
+          // Eğer data yoksa boş obje set et
+          setFooterData({});
+          setSocialMediaLinks([]);
+        }
       } catch (err) {
-        console.log(err);
+        console.log("Error fetching footer:", err);
+        // Hata durumunda boş değerler set et
+        setFooterData({});
+        setSocialMediaLinks([]);
       }
     };
     getFooterData();
   }, []);
-
   const onSubmit = async (values, actions) => {
     try {
+      console.log("Submitting:", values); // Debug için
+      console.log("Footer ID:", footerData._id); // Debug için
+
+      if (!footerData._id) {
+        toast.error("Footer ID not found");
+        return;
+      }
+
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/footer/${footerData._id}`,
         {
@@ -43,11 +61,15 @@ const Footer = () => {
           socialMedia: socialMediaLinks,
         }
       );
+
+      console.log("Update response:", res.data); // Debug için
+
       if (res.status === 200) {
         toast.success("Footer updated successfully");
       }
     } catch (err) {
-      console.log(err);
+      console.log("Update error:", err);
+      toast.error("Failed to update footer");
     }
   };
 
@@ -55,12 +77,12 @@ const Footer = () => {
     useFormik({
       enableReinitialize: true,
       initialValues: {
-        location: footerData?.location,
-        email: footerData?.email,
-        phoneNumber: footerData?.phoneNumber,
-        desc: footerData?.desc,
-        day: footerData?.openingHours?.day,
-        time: footerData?.openingHours?.hour,
+        location: footerData?.location || "",
+        email: footerData?.email || "",
+        phoneNumber: footerData?.phoneNumber || "",
+        desc: footerData?.desc || "",
+        day: footerData?.openingHours?.day || "",
+        time: footerData?.openingHours?.hour || "",
       },
       onSubmit,
       validationSchema: footerSchema,
@@ -121,10 +143,9 @@ const Footer = () => {
       touched: touched.time,
     },
   ];
-
   const handleCreate = (e) => {
     setSocialMediaLinks([
-      ...footerData?.socialMedia,
+      ...socialMediaLinks,
       {
         icon: iconName,
         link: linkAddress,
@@ -133,6 +154,7 @@ const Footer = () => {
     setLinkAddress("https://");
     setIconName("fa fa-");
   };
+
   return (
     <form className="lg:p-8 flex-1 lg:mt-0 mt-5" onSubmit={handleSubmit}>
       <Title addClass="text-[40px]">Footer Settings</Title>
@@ -160,13 +182,6 @@ const Footer = () => {
             value={iconName}
           />
           <button className="btn-primary" type="button" onClick={handleCreate}>
-
-
-
-
-
-
-
             Add
           </button>
         </div>
@@ -177,7 +192,7 @@ const Footer = () => {
               <button
                 className="text-danger"
                 onClick={() => {
-                  setIcons((prev) => prev.filter((item, i) => i !== index));
+                  setSocialMediaLinks((prev) => prev.filter((item, i) => i !== index));
                 }}
                 type="button"
               >
