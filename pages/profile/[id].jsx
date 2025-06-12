@@ -35,7 +35,7 @@ const Profile = ({ initialUser }) => {
       <div className="lg:w-80 w-100 flex-shrink-0">
         <div className="relative flex flex-col items-center px-10 py-5 border border-b-0">
           <Image
-            src={user.image ? user.image : "/images/client2.jpg"}
+            src={user.image ? user.image : "/images/client1.jpg"}
             alt=""
             width={100}
             height={100}
