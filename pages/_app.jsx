@@ -1,7 +1,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Layout from "../layout/Layout";
-import store from "../redux/store";
+import Layout from "@/components/layout/Layout";
+import store from "@/components/product/redux/store";
 import Router from "next/router";
 import NProgress from "nprogress";
 
