@@ -13,12 +13,7 @@ const About = () => {
                 <div className="md:w-1/2">
                     <Title addClass="text-[40px]">We Are Feasta</Title>
                     <p className="my-5 flex flex-col items-center">
-                        There are many variations of passages of Lorem Ipsum available, but
-                        the majority have suffered alteration in some form, by injected
-                        humour, or randomised words which don`t look even slightly
-                        believable. If you are going to use a passage of Lorem Ipsum, you
-                        need to be sure there isn`t anything embarrassing hidden in the
-                        middle of text. All
+                        We have been offering quality fast food experience since 2015. With 50+ branches, 1000+ happy customers and our never-ending search for flavor, we are Turkey's most popular fast food brand. Fresh ingredients, hygienic kitchen, friendly service... As Feasta, we aim perfection in every detail. Because you, our valued customers, deserve it!
                     </p>
                     <button className="btn-primary">Read More</button>
                 </div>

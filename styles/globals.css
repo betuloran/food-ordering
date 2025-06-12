@@ -33,3 +33,38 @@ body {
 .slick-dots div {
   @apply !m-0 !mt-8;
 }
+
+/* globals.css veya styles.css */
+
+/* Slick slider özel stilleri */
+.slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.slick-slide {
+  height: auto;
+}
+
+.slick-slide>div {
+  height: 100%;
+}
+
+/* Smooth hover effects */
+.slick-slide .transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fbbf24;
+  border-radius: 3px;
+}
