@@ -57,7 +57,7 @@ const Customers = () => {
         <div className="container mx-auto my-20 px-4">
             <Title addClass="text-[40px] text-center mb-4">What Says Our Customers</Title>
             <p className="text-center text-gray-900 mb-10 max-w-2xl mx-auto ">
-                Binlerce mutlu müşterimizin deneyimlerini keşfedin ve neden bizi tercih ettiklerini öğrenin.
+                Discover the experiences of thousands of happy customers and find out why they choose us.
             </p>
 
             <div className="relative pb-16"> {/* Bottom padding for buttons */}

@@ -94,9 +94,7 @@ const Header = () => {
                             size={18}
                         />
                     </button>
-                    <a href="#" className="md:inline-block hidden sm">
-                        <button className="btn-primary">Order Online</button>
-                    </a>
+                  
                     <button
                         className="sm:hidden inline-block"
                         onClick={() => setIsMenuModal(true)}
